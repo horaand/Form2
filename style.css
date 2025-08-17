@@ -1,0 +1,199 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body{
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root{
+    --neon-1: #00eaff;
+    --neon-2: #6a7bff;
+    --neon-3: #ff4dff;
+    --glass: rgba(255, 255, 255, .75);
+    --stroke: rgba(255, 255, 255, .6);
+}
+
+.sky{
+  min-height: 100svh;
+  background: linear-gradient(to bottom, #bfe0ff 0%, #a9cbff 45%, #9fc2fb 100%);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.fantasy-form{
+  position: relative;
+  width: min(92vw, 360px);
+  background: var(--glass);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.12);
+}
+
+.fantasy-form h2{
+  margin: 4px 0 10px;
+  font-size: 28px;
+  color: #1e293b;
+  letter-spacing: .2px;
+}
+
+.fantasy-form input{
+  padding: 12px 14px;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  background: rgba(255,255,255,.9);
+  transition: box-shadow .25s, border-color .25s, background .25s;
+}
+.fantasy-form input:focus{
+  border-color: var(--neon-1);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 234, 255, .2);
+}
+
+.fantasy-form button{
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 16px;
+  color: #002b2b;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--neon-1), #00ffc6);
+  box-shadow: 0 8px 20px rgba(0, 207, 255, .4);
+  transition: transform .15s ease, box-shadow .25s ease, filter .25s ease;
+}
+.fantasy-form button:hover{ box-shadow: 0 12px 26px rgba(0, 207, 255, .55); filter: saturate(1.15); }
+.fantasy-form button:active{ transform: translateY(1px) scale(.99); }
+
+.neon-card::before,
+.neon-card::after{
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 20px;
+    z-index: -1;
+}
+
+.neon-card::before{
+    background: conic-gradient(
+    from 0deg,
+    var(--neon-1), var(--neon-2), var(--neon-3),
+    var(--neon-2), var(--neon-1)
+  );
+  filter: blur(10px);
+  animation: hue 6s linear infinite;
+}
+
+.neon-card::after{
+  background: #000;
+  border-radius: 20px;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.8) inset,
+    0 2px 20px rgba(0,0,0,.06) inset;
+  z-index: -2;
+}
+
+.neon-card .aurora{
+  pointer-events: none;
+}
+
+.neon-card > * { position: relative; }
+.neon-card h2::after{
+  content:"";
+  position:absolute;
+  inset:auto;
+  left:50%;
+  top:-22px;
+  width:160px; height:160px;
+  translate:-50% 0;
+  background: radial-gradient(closest-side, rgba(0,234,255,.25), transparent 70%);
+  filter: blur(10px);
+  z-index:-1;
+}
+
+@keyframes hue{
+  from{ filter: blur(10px) hue-rotate(0deg); }
+  to{   filter: blur(10px) hue-rotate(360deg); }
+}
+
+.corner-decor{
+  position: absolute;
+  top: -26px;
+  left: -26px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: bob 4s ease-in-out infinite;
+}
+
+.sun{
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe784 0%, #ffcf33 45%, #ffa400 80%);
+  box-shadow: 0 0 42px rgba(255, 216, 94, .6);
+  animation: slow-rot 20s linear infinite;
+}
+
+.cloud{
+  position: relative;
+  background: rgba(255,255,255,.96);
+  width: 62px; height: 34px;
+  border-radius: 999px;
+  filter: drop-shadow(0 6px 10px rgba(255,255,255,.35));
+}
+.cloud::before, .cloud::after{
+  content:"";
+  position: absolute; background: rgba(255,255,255,.96); border-radius:50%;
+}
+.cloud::before{ width:32px; height:32px; top:-12px; left:-6px; }
+.cloud::after { width:28px; height:28px; top:-10px; left:26px; }
+.small-cloud{ transform: translateY(6px); }
+
+@keyframes bob{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(4px) } }
+@keyframes slow-rot{ from{ transform: rotate(0) } to{ transform: rotate(360deg) } }
+
+.bg-cloud{
+  position: absolute;
+  top: 12%;
+  left: -220px;
+  width: 180px; height: 90px;
+  opacity: .7;
+  background: #ffffffd9;
+  border-radius: 90px;
+  filter: blur(1px);
+  animation: drift 15s linear infinite;
+}
+.bg-cloud::before, .bg-cloud::after{
+  content:""; position:absolute; background:#ffffffd9; border-radius:50%;
+}
+.bg-cloud::before{ width:110px; height:110px; top:-34px; left:24px; }
+.bg-cloud::after { width:90px;  height:90px;  top:-26px; left:98px; }
+
+.bg-cloud-1{ top: 18%; animation-delay: 0s; }
+.bg-cloud-2{ top: 38%; animation-delay: 12s; transform: scale(.85); }
+.bg-cloud-3{ top: 66%; animation-delay: 24s; transform: scale(1.1); }
+
+@keyframes drift{
+  from{ transform: translateX(-20vw); }
+  to{   transform: translateX(140vw); }
+}
+
+@media (max-width: 420px){
+  .corner-decor{ top:-22px; left:-22px; }
+  .sun{ width:50px; height:50px; }
+}
